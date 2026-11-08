@@ -1,0 +1,15 @@
+# F&J 이벤트 · 펀앤조이 체육교실
+> 경기 화성의 유아체육 · 이벤트 행사 전문. 어린이집 · 유치원 · 초등학교 운동회, 에어바운스, 워터슬라이드, 수영장 대여, 음향 · 조명, 레크리에이션을 15년 이상 진행.
+
+- 대표: 최원창 · 전화 010-9121-9982 · cwc9982@naver.com
+- 주소: 경기도 화성시 효행구 비봉면 일묵동안길 3-6
+- 영업시간: 평일 10:00 ~ 19:00 / 토요일 10:00 ~ 19:00 / 일요일 휴무
+- 진행 실적: 경기 남부 운동회 연 100회, 물놀이 행사 연 50회, 경기도교육청 행사 진행
+- 서비스: 음향 · 조명 / 체육대회 · 운동회 / 놀이기구 · 에어바운스 / 워터슬라이드 · 수영장 / 레크리에이션 / 송년회 · 신년회 / 유아체육 · 체험놀이 · 교구 대여 · 발표회
+
+## 페이지
+- [회사 소개](https://brizymedia.github.io/fj-event/about.html)
+- [행사 · 대여](https://brizymedia.github.io/fj-event/event.html)
+- [유아체육 · 체험](https://brizymedia.github.io/fj-event/kids.html)
+- [포트폴리오](https://brizymedia.github.io/fj-event/portfolio.html)
+- [견적 문의](https://brizymedia.github.io/fj-event/contact.html)

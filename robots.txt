@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /
+Sitemap: https://brizymedia.github.io/fj-event/sitemap.xml
