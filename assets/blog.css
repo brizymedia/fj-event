@@ -1,0 +1,55 @@
+/* F&J 이벤트 블로그 — assets/style.css 의 색 · 글꼴 · 머리 · 꼬리 위에 얹는다. scripts/build-blog.mjs 가 쓰는 클래스만 있다. */
+.bcrumb{width:min(760px,100% - 40px);margin:0 auto;padding:18px 0 0;font-size:13.5px;font-weight:700;color:var(--soft)}
+.bcrumb.wide{width:min(1180px,100% - 40px)}.bcrumb a:hover{text-decoration:underline}
+.bart{width:min(760px,100% - 40px);margin:0 auto;padding:18px 0 64px}
+.bwrap{width:min(1180px,100% - 40px);margin:0 auto;padding:18px 0 72px}
+.beyebrow{display:inline-flex;align-items:center;gap:9px;margin:0 0 12px;font:800 13px 'Gothic A1',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-ink)}
+.beyebrow::before{content:"";width:12px;height:12px;border-radius:50%;background:var(--sun);border:2px solid var(--ink)}
+.bart h1,.bwrap h1{font-size:clamp(28px,4.6vw,44px);line-height:1.3;margin:0 0 16px;text-wrap:balance}
+.bmeta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 24px}
+.bmeta a,.bmeta span{font-size:13px;font-weight:800;padding:6px 14px;border-radius:999px;border:2px solid var(--ink);background:#fff}
+.bmeta a{background:var(--sunbg)}.bmeta a:hover{background:var(--sun)}
+.blead{font-size:18px;line-height:1.85;margin:0 0 26px;font-weight:500}.blead a{color:var(--blue-ink);font-weight:800}
+.bfig{margin:0 0 30px}
+.bfig img{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:22px;border:2px solid var(--ink);box-shadow:0 6px 0 var(--ink);background:var(--sunbg)}
+.bfig.cover img{aspect-ratio:16/9}
+.bfig figcaption{font-size:14px;color:var(--soft);margin-top:12px;line-height:1.65}
+.bpoints{background:var(--sunbg);border:2px solid var(--ink);border-radius:22px;padding:20px 24px;margin:0 0 28px}
+.bpoints b{display:block;font:400 18px 'Jua',sans-serif;margin-bottom:8px}
+.bpoints ul{margin:0;padding-left:20px}.bpoints li{line-height:1.75;margin:5px 0}
+.btoc{border-left:4px solid var(--sun);padding:2px 0 2px 18px;margin:0 0 38px}
+.btoc b{font-size:13px;color:var(--soft)}.btoc ol{margin:6px 0 0;padding-left:0;list-style:none}.btoc li{line-height:1.95}.btoc a:hover{color:var(--blue-ink);text-decoration:underline}
+.bbody h2,.bfaq h2{font:400 clamp(23px,3.4vw,29px)/1.4 'Jua','Gothic A1',sans-serif;margin:44px 0 14px;scroll-margin-top:92px;text-wrap:balance}
+.bbody p,.bfaq p{font-size:17px;line-height:1.95;margin:0 0 18px}
+.bbody ul,.bbody ol{margin:0 0 22px;padding-left:22px}.bbody li{font-size:17px;line-height:1.85;margin:6px 0}
+.bbody b{background:linear-gradient(transparent 62%,rgba(255,194,26,.55) 62%)}
+.bbody a,.bfaq a{color:var(--blue-ink);font-weight:800;text-decoration:underline;text-underline-offset:3px}
+.btbl{overflow-x:auto;margin:0 0 24px;border:2px solid var(--ink);border-radius:18px;background:#fff;-webkit-overflow-scrolling:touch}
+.btbl table{border-collapse:collapse;width:100%;font-size:15px;min-width:520px}
+.btbl th,.btbl td{padding:11px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);line-height:1.65}
+.btbl th{background:var(--sunbg);font-weight:800;white-space:nowrap}.btbl tbody tr:last-child td{border-bottom:0}
+.btip{background:#E9F5FF;border:2px solid var(--ink);border-radius:18px;padding:16px 20px;margin:0 0 24px;font-size:16.5px;line-height:1.85}
+.btip::before{content:'현장 메모';display:block;font:400 15px 'Jua',sans-serif;color:var(--blue-ink);margin-bottom:3px}
+.bfaq details{background:#fff;border:2px solid var(--ink);border-radius:18px;margin:0 0 10px;padding:0 18px}
+.bfaq summary{cursor:pointer;font-weight:800;padding:14px 0;line-height:1.6}.bfaq details p{margin:0 0 16px}
+.bsrc{margin-top:34px;font-size:14px;color:var(--soft);line-height:1.7}.bsrc ul{padding-left:18px;margin:6px 0 0}.bsrc a{text-decoration:underline}
+.bcta{background:var(--blue);color:#fff;border:3px solid var(--ink);border-radius:30px;padding:28px;margin-top:44px;display:flex;flex-wrap:wrap;gap:18px;align-items:center;justify-content:space-between;box-shadow:8px 8px 0 var(--ink)}
+.bcta h3{font-size:24px;margin:0 0 6px}.bcta p{margin:0;font-weight:700;font-size:15px;line-height:1.7}
+.bcta .num{display:block;font:400 30px 'Jua',sans-serif;color:var(--sun);margin-bottom:10px}
+.bcta .btns{gap:10px}
+.bmore{width:min(1180px,100% - 40px);margin:0 auto;padding:8px 0 80px}.bmore h2{font-size:26px;margin:0 0 18px}
+.bcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+.bcard{display:block;background:#fff;border:2px solid var(--ink);border-radius:24px;overflow:hidden;box-shadow:0 6px 0 var(--ink);transition:transform .2s,box-shadow .2s}
+.bcard:hover{transform:translateY(3px);box-shadow:0 3px 0 var(--ink)}
+.bcard img{display:block;width:100%;height:auto;aspect-ratio:16/11;object-fit:cover;background:var(--sunbg);border-bottom:2px solid var(--ink)}
+.bcard .in{padding:16px 18px 20px}.bcard .r{font-size:12.5px;font-weight:800;color:var(--blue-ink);margin-bottom:6px}
+.bcard .t{font:400 20px/1.4 'Jua','Gothic A1',sans-serif}
+.bcard .s{font-size:14px;color:var(--soft);line-height:1.65;margin-top:8px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.bchips{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 28px}
+.bchips a{font-size:14px;font-weight:800;padding:8px 16px;border-radius:999px;background:#fff;border:2px solid var(--ink)}
+.bchips a:hover{background:var(--sunbg)}.bchips a[aria-current]{background:var(--ink);color:#fff}.bchips small{font-weight:700;margin-left:5px;opacity:.65}
+.bpager{display:flex;gap:8px;justify-content:center;margin-top:34px}
+.bpager a,.bpager span{padding:8px 15px;border-radius:12px;border:2px solid var(--ink);font-weight:800;background:#fff}.bpager span{background:var(--ink);color:#fff}
+.bempty{background:#fff;border:2px dashed var(--ink);border-radius:20px;padding:24px;color:var(--soft);line-height:1.8;margin-bottom:24px}
+@media (max-width:640px){.bcta{padding:22px;border-radius:24px;box-shadow:5px 5px 0 var(--ink)}.bcta .num{font-size:26px}.bart{padding-bottom:40px}.bbody p,.bbody li,.bfaq p{font-size:16.5px}}
+@media (prefers-reduced-motion:reduce){.bcard{transition:none}.bcard:hover{transform:none}}

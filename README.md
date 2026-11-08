@@ -30,3 +30,14 @@ python tools/port_docs.py     # 큰길이벤트 원본(~/Documents/클로드코�
 - **서버 배포 전**이라 `port_docs.py` 의 `CONTRACT_URL` · `GALLERY_URL` 이 비어 있다. 배포(형님 구글 계정) 뒤 `/exec` 주소를 넣고 `port_docs.py` → `build_site.py` 순서로 다시 실행. 배포할 때 계약 서버 스크립트 속성 `BOX_PW` 에 txt 의 대표 암호를 넣어야 관리자 모드가 열린다.
 - 대표 직인 PNG 를 `assets/img/stamp-fj.png` 로 넣으면 견적서 · 계약서 · 명세서에 찍힌다(없으면 「(인)」).
 - 공지: 서버 연결 전에는 `assets/data/notices.json`, 연결 뒤에는 `notice-admin.html`(photos 가지 `photos/notices.json` 에 쌓이고 공지 페이지가 앞에 붙여 보여 줌 — 레포에 photos 고아 가지를 같이 만들 것).
+
+## 행사 준비 블로그 (/blog/ · 2026-11-08 첫 10편)
+```
+python tools/build_site.py          # ① 페이지 · sitemap · llms.txt 를 만든다 (블로그 항목을 덮어쓴다)
+python tools/blog_shell.py          # ② build_site.py 의 머리 · 꼬리를 _blog/shell.json 으로 옮긴다
+node scripts/build-blog.mjs         # ③ /blog/ · rss.xml 을 만들고 sitemap.xml · llms.txt 에 블로그 항목을 이어 붙인다
+node scripts/blog-check.mjs         # 글 검사 (새 글은 --new _blog/posts/<파일>)
+```
+- **실행 순서는 반드시 build_site.py → blog_shell.py → build-blog.mjs.** build_site.py 가 sitemap.xml · llms.txt 를 덮어쓰기 때문이다. 주소 기준(`BASE`) · noindex 여부도 build_site.py 에서 읽는다.
+- 글 규칙 · 사용할 수 있는 회사 사실: `_blog/GUIDE.md`. 지역 자료 `regions.json` · 사진 `photos.json` · 출처 `sources.json` · 글 `posts/*.json`. `blog/` 는 매번 지우고 다시 만드니 손으로 고치지 않는다.
+- 머리 메뉴에 「블로그」 링크는 아직 없다(build_site.py 의 NAV 에 넣을 것). 블로그 글에는 가격 · 후기 · 학교 이름을 쓰지 않았다(검사기가 막는다).
