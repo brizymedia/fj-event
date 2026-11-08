@@ -30,7 +30,7 @@ YT = 'https://www.youtube.com/@FJEVENT'
 KAKAO = ''            # 카카오톡 채널 주소를 받으면 여기에 (https://pf.kakao.com/_xxxx/chat). 비어 있으면 단추가 안 나온다
 BASE = 'https://brizymedia.github.io/fj-event'   # 도메인(F&J EVENT.co.kr 희망)을 잡으면 여기만 바꾸고 다시 실행
 NOINDEX = True        # 오픈 확정 뒤 False
-VER = '1'
+VER = '2'
 FORM_ENDPOINT = ''    # 문의 서버(Apps Script) 배포 뒤 /exec 주소. 비어 있으면 문자 앱으로 연결
 MAP = 'https://map.naver.com/p/search/' + '%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%99%94%EC%84%B1%EC%8B%9C%20%EB%B9%84%EB%B4%89%EB%A9%B4%20%EC%9D%BC%EB%AC%B5%EB%8F%99%EC%95%88%EA%B8%B8%203-6'
 OG = BASE + '/assets/img/og.png'
@@ -73,13 +73,21 @@ VIDEOS = [
 ]
 # 사진: 코드 → (제목, 파일명 assets/img/p/ 안). 파일이 있으면 사진, 없으면 자리표
 PHOTOS = [
-    ('hero', '운동회 현장', '', 'sports'),
-    ('arch', '입구 아치 세팅', '', 'sports'),
-    ('bounce', '에어바운스', '', 'bounce'),
-    ('water', '워터슬라이드', '', 'water'),
-    ('rec', '레크리에이션', '', 'rec'),
-    ('stage', '발표회 무대', '', 'sound'),
+    ('hero', '안산 · 가을 운동회', '', 'sports'), ('arch', '향남 · 입구 아치 세팅', '', 'sports'), ('sports', '안산 · 운동회 게임', '', 'sports'),
+    ('sports2', '향남 · 병설유치원 운동회', '', 'sports'), ('sports3', '수원 · 체육대회', '', 'sports'), ('sports4', '오산 · 초등학교 체육대회', '', 'sports'),
+    ('rec', '군포 · 가족운동회', '', 'rec'),
+    ('bounce', '어린이날 에어바운스', '', 'bounce'), ('bounce2', '어린이날 에어바운스', '', 'bounce'), ('bounce3', '시흥 · 뽀로로 슬라이드', '', 'bounce'),
+    ('water', '화성 · 워터슬라이드', '', 'water'), ('water2', '안산 · 물놀이', '', 'water'), ('water3', '서울 · 해적 워터슬라이드', '', 'water'),
+    ('pool', '인천 · 10x10 수영장 대여', '', 'water'), ('indoor', '동탄 · 실내 수영장', '', 'water'),
+    ('kids1', '스카프 유아체육', '', 'sports'), ('kids2', '꼬마농부 체험놀이', '', 'sports'), ('kids3', '교통안전 체험놀이', '', 'sports'), ('kids4', '철봉 유아체육', '', 'sports'),
 ]
+GROUPS = [
+    ('운동회 · 체육대회', ['hero', 'arch', 'sports', 'sports2', 'sports3', 'sports4', 'rec']),
+    ('에어바운스', ['bounce', 'bounce2', 'bounce3']),
+    ('물놀이 · 수영장', ['water', 'water2', 'water3', 'pool', 'indoor']),
+    ('유아체육 · 체험놀이', ['kids1', 'kids2', 'kids3', 'kids4']),
+]
+CAP = {c: t for c, t, _, _ in PHOTOS}
 FAQ = [
     ('견적은 어떻게 받나요?', '행사 날짜, 장소, 예상 인원만 알려 주세요. 전화, 문자, 카카오톡, 아래 문의 양식 중 편한 방법이면 됩니다. 확인 뒤 구성과 비용을 정리해 드립니다.'),
     ('어느 지역까지 가나요?', '경기 남부를 중심으로 진행하고 있습니다. 화성 · 동탄 · 안산 · 인천 등에서 진행한 기록이 있고, 지역이 멀어도 문의는 받습니다.'),
@@ -247,7 +255,7 @@ def build_index():
     st = ''.join(f'<li class="rv d{i + 1}"><b>{a}</b><span>{b}</span></li>' for i, (a, b) in enumerate(STRENGTHS))
     rec = ''.join(f'<div class="rc rv d{i + 1}"><b>{a}</b><span>{b}</span></div>' for i, (a, b) in enumerate(RECORDS))
     vids = ''.join(yt_card(v, i) for i, v in enumerate(VIDEOS))
-    gal = ''.join(f'<figure class="g rv d{i % 4 + 1}">{photo(code, "gi")}<figcaption>{esc(t)}</figcaption></figure>' for i, (code, t, _, _) in enumerate(PHOTOS))
+    gal = ''.join(f'<figure class="g rv d{i % 4 + 1}">{photo(code, "gi")}<figcaption>{esc(CAP[code])}</figcaption></figure>' for i, code in enumerate(['arch', 'bounce', 'water', 'sports', 'kids2', 'indoor']))
     notes = ''.join(
         f'<li><a href="notice.html#n{i}"><time>{esc(n["d"])}</time><span class="t">{esc(n["t"])}</span></a></li>' for i, n in enumerate(NOTICES[:4]))
     faq = ''.join(f'<details class="rv"><summary>{esc(q)}</summary><p>{esc(a)}</p></details>' for q, a in FAQ)
@@ -356,7 +364,7 @@ def build_event():
     cards = ''
     for i, m in enumerate(MENU):
         k = m['k']
-        cards += f'''<article class="svc rv" id="{k}" style="--c:{m['c']}"><div class="sp">{photo(k if any(p[0] == k for p in PHOTOS) else "arch", "gi")}</div>
+        cards += f'''<article class="svc rv" id="{k}" style="--c:{m['c']}"><div class="sp">{photo({'sound': 'arch', 'sports': 'sports2', 'bounce': 'bounce', 'water': 'water', 'rec': 'rec', 'party': 'sports3'}[k], "gi")}</div>
   <div class="st"><span class="no">0{i + 1}</span><h3>{m['n']}</h3><p>{m['t']}</p><p class="from"><b>{m['p']}</b>만 원~ <small>(규모 · 장소에 따라 달라집니다)</small></p>{btn("contact.html?s=" + k + "#form", "이 항목 견적 문의", "ink sm")}</div></article>'''
     body = phead('행사 · 대여', 'EVENT', '행사와 장비,<br><span class="hl">한 곳</span>에 맡기세요',
                  '세팅부터 진행, 철수까지. 자체 장비로 운영하고 제작까지 합니다.') + f'''
@@ -374,7 +382,8 @@ def build_kids():
     cards = ''.join(f'<div class="kd rv d{i % 4 + 1}"><h3>{a}</h3><p>{b}</p></div>' for i, (a, b) in enumerate(KIDS))
     body = phead('유아체육 · 체험', 'KIDS', '아이들이 <span class="hl">뛰어노는</span><br>펀앤조이 체육교실',
                  '유아체육, 체험놀이, 교구 대여, 발표회까지 어린이집 · 유치원 · 놀이학교와 함께합니다.') + f'''
-<section class="sec"><div class="wrap"><div class="kds">{cards}</div></div></section>
+<section class="sec"><div class="wrap"><div class="kds">{cards}</div>
+  <div class="gal" style="margin-top:34px">{''.join(f'<figure class="g rv d{i + 1}">{photo(c, "gi")}<figcaption>{esc(CAP[c])}</figcaption></figure>' for i, c in enumerate(['kids1', 'kids2', 'kids3']))}</div></div></section>
 <section class="sec cream"><div class="wrap two">
   <div><span class="eb"><i></i>SEASON</span><h2 class="h2 rv">계절 따라 <span class="hl">이런 행사</span></h2></div>
   <ul class="why"><li class="rv d1"><b>봄 · 가을</b><span>어린이집 · 유치원 · 초등학교 운동회, 체육대회.</span></li><li class="rv d2"><b>여름</b><span>워터슬라이드와 수영장 대여로 물놀이 행사.</span></li><li class="rv d3"><b>겨울</b><span>발표회, 송년회 · 신년회, 시무식 · 종무식.</span></li></ul>
@@ -389,7 +398,7 @@ def build_kids():
 
 # ════════════════════════ 포트폴리오 ════════════════════════
 def build_portfolio():
-    gal = ''.join(f'<figure class="g rv d{i % 4 + 1}">{photo(code, "gi")}<figcaption>{esc(t)}</figcaption></figure>' for i, (code, t, _, _) in enumerate(PHOTOS))
+    gal = ''.join(f'<h3 class="gh">{g}</h3><div class="gal">' + ''.join(f'<figure class="g rv d{i % 4 + 1}">{photo(code, "gi")}<figcaption>{esc(CAP[code])}</figcaption></figure>' for i, code in enumerate(cs)) + '</div>' for g, cs in GROUPS)
     body = phead('포트폴리오', 'PORTFOLIO', '현장에서 <span class="hl">보여드립니다</span>',
                  '영상 · 사진 · 블로그 후기까지, 실제 진행 모습을 볼 수 있습니다.') + f'''
 <section class="sec"><div class="wrap">
@@ -398,7 +407,7 @@ def build_portfolio():
 </div></section>
 <section class="sec cream"><div class="wrap">
   <div class="sechead"><div><span class="eb"><i></i>PHOTO</span><h2 class="h2 rv">사진</h2></div></div>
-  <div class="gal">{gal}</div>
+  {gal}
 </div></section>
 <section class="sec"><div class="wrap">
   <div class="sechead"><div><span class="eb"><i></i>CHANNELS</span><h2 class="h2 rv">더 많은 <span class="hl">현장 이야기</span></h2></div></div>
