@@ -28,9 +28,11 @@ INSTA = 'https://www.instagram.com/fun_and_joy_'
 NBLOG = 'https://blog.naver.com/funandjoy12'
 YT = 'https://www.youtube.com/@FJEVENT'
 KAKAO = ''            # 카카오톡 채널 주소를 받으면 여기에 (https://pf.kakao.com/_xxxx/chat). 비어 있으면 단추가 안 나온다
+REPO = 'brizymedia/fj-event'   # 공지 관리자가 올린 공지(photos 가지)를 읽는 레포
 BASE = 'https://brizymedia.github.io/fj-event'   # 도메인(F&J EVENT.co.kr 희망)을 잡으면 여기만 바꾸고 다시 실행
 NOINDEX = True        # 오픈 확정 뒤 False
 VER = '2'
+EDIT_HASH = 'ca804a9435800bfb2ae99ecbc044bbcd4761f67b4aff81175e4f7bc1bc453830'   # 사장님 직접 수정 열쇠의 sha256 (열쇠 자체는 어디에도 적지 않는다 — 큰길브리지 Desktop 메모에만)
 FORM_ENDPOINT = ''    # 문의 서버(Apps Script) 배포 뒤 /exec 주소. 비어 있으면 문자 앱으로 연결
 MAP = 'https://map.naver.com/p/search/' + '%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%99%94%EC%84%B1%EC%8B%9C%20%EB%B9%84%EB%B4%89%EB%A9%B4%20%EC%9D%BC%EB%AC%B5%EB%8F%99%EC%95%88%EA%B8%B8%203-6'
 OG = BASE + '/assets/img/og.png'
@@ -142,7 +144,7 @@ def header(cur):
   <button class="mbtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sheet"><i></i><i></i><i></i></button>
 </div></header>
 <div class="sheet" id="sheet">{sheet}
-  <div class="sub"><a href="notice.html">공지사항</a><a href="{NBLOG}" target="_blank" rel="noopener">네이버 블로그</a><a href="{YT}" target="_blank" rel="noopener">유튜브</a><a href="{INSTA}" target="_blank" rel="noopener">인스타그램</a></div>
+  <div class="sub"><a href="notice.html">공지사항</a><a href="quote.html">자동 견적서</a><a href="{NBLOG}" target="_blank" rel="noopener">네이버 블로그</a><a href="{YT}" target="_blank" rel="noopener">유튜브</a><a href="{INSTA}" target="_blank" rel="noopener">인스타그램</a></div>
   <div class="btns" style="margin-top:28px">{btn("tel:" + TEL_RAW, "전화 " + TEL, "sun")}</div>
 </div>'''
 
@@ -158,9 +160,11 @@ def footer():
     <div><h4>채널</h4><a href="{NBLOG}" target="_blank" rel="noopener">네이버 블로그</a><a href="{YT}" target="_blank" rel="noopener">유튜브</a><a href="{INSTA}" target="_blank" rel="noopener">인스타그램</a></div>
   </div>
   <div class="copy"><span>© {datetime.date.today().year} {NAME}. All rights reserved.</span><span>고객의 웃음과 즐거움을 위해</span></div>
+  <div class="admin-entry" style="text-align:center;padding:14px 0 0;font-size:12px"><a href="office.html" rel="nofollow" style="display:inline-flex;gap:5px;align-items:center;opacity:.5;padding:0"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>관리자 모드</a></div>
 </div></footer>
 <div class="dock"><a href="tel:{TEL_RAW}">전화 상담</a>{kk}</div>
 <script src="assets/app.js?v={VER}"></script>
+<script src="assets/edit.js?v={VER}" defer></script>
 <script defer src="https://www.ai-make.co.kr/stats/stats.js" data-site="fj"></script>'''
 
 
@@ -186,6 +190,7 @@ def jsonld_faq():
 def page(fn, title, desc, body, cur='', extra_head=''):
     url = BASE + '/' + ('' if fn == 'index.html' else fn)
     robots = '<meta name="robots" content="noindex,nofollow">' if NOINDEX else ''
+    EDIT_META = ('<meta name="fj-edit" content="' + EDIT_HASH + '">') if fn not in ('notice-admin.html', '404.html') else ''
     out = f'''<!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -195,6 +200,7 @@ def page(fn, title, desc, body, cur='', extra_head=''):
 <meta name="description" content="{esc(desc)}">
 {robots}
 <meta name="theme-color" content="#FFFBF0">
+{EDIT_META}
 <link rel="canonical" href="{url}">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta property="og:type" content="website"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="{NAME}">
@@ -425,8 +431,98 @@ def build_portfolio():
 def build_notice():
     items = ''.join(
         f'<article class="nt rv" id="n{i}"><time>{esc(n["d"])}</time><h3>{esc(n["t"])}</h3><p>{esc(n["b"])}</p></article>' for i, n in enumerate(NOTICES))
-    body = phead('공지사항', 'NOTICE', '공지사항', '행사 일정과 새 소식을 알려 드립니다.') + f'<section class="sec"><div class="wrap narrow">{items}</div></section>' + cta_band()
+    # 공지 관리자(notice-admin.html)로 올린 공지는 photos 가지의 notices.json 에 쌓인다 — 있으면 이 목록 앞에 붙인다(없거나 못 읽으면 아래 정적 목록 그대로)
+    live = f'''<script>
+(function(){{
+  var box=document.getElementById('nlist'); if(!box||location.protocol.indexOf('http')!==0) return;
+  function esc(t){{return String(t==null?'':t).replace(/[&<>"]/g,function(c){{return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}}[c];}});}}
+  fetch('https://raw.githubusercontent.com/{REPO}/photos/photos/notices.json?t='+Math.floor(Date.now()/120000),{{cache:'no-store'}}).then(function(r){{return r.ok?r.json():null;}}).then(function(j){{
+    if(!j||!j.notices||!j.notices.length) return;
+    var st=[]; try{{st=JSON.parse(box.getAttribute('data-static')||'[]');}}catch(x){{}}
+    box.innerHTML=j.notices.concat(st).map(function(n,i){{return '<article class="nt in" id="n'+i+'"><time>'+esc(n.d)+'</time><h3>'+esc(n.t)+'</h3><p>'+esc(n.b||'')+'</p></article>';}}).join('');
+  }}).catch(function(){{}});
+}})();
+</script>'''
+    body = phead('공지사항', 'NOTICE', '공지사항', '행사 일정과 새 소식을 알려 드립니다.') + f'<section class="sec"><div class="wrap narrow" id="nlist" data-static=\'{NJ}\'>{items}</div></section>' + live + cta_band()
     page('notice.html', f'공지사항 | {NAME}', 'F&J 이벤트 공지사항.', body, 'notice.html')
+
+
+# ════════════════════════ 공지 관리자 (서버 연결 뒤 작동) ════════════════════════
+def build_notice_admin():
+    import re
+    pd = open(os.path.join(ROOT, 'tools/port_docs.py'), encoding='utf-8').read()
+    m = re.search(r"^GALLERY_URL\s*=\s*'([^']*)'", pd, re.M)
+    gurl = m.group(1) if m else ''
+    body = f"""<section class="phead" style="padding-bottom:30px"><div class="wrap"><span class="eb"><i></i>ADMIN</span><h1 style="font-size:clamp(30px,5vw,52px)">공지사항 관리</h1>
+<p class="lead">공지를 쓰면 홈페이지 공지사항에 올라갑니다(몇 분 안에). 사진 올리기와 같은 비밀번호를 씁니다.</p></div></section>
+<section class="sec" style="padding-top:20px"><div class="wrap" style="max-width:900px">
+<style>.nadm .nrow{{display:flex;gap:14px;flex-wrap:wrap;align-items:baseline;padding:16px 0;border-bottom:2px dashed var(--line)}}.nadm .nrow time{{color:var(--blue-ink);font-weight:800;font-size:14px;width:96px;flex:none}}.nadm .nrow .t{{font-weight:800;flex:1;min-width:200px}}.nadm .nrow .t small{{display:block;font-weight:500;color:var(--soft)}}.nadm .new{{background:var(--coral);color:#fff;border-radius:999px;padding:1px 9px;font-size:11px;margin-left:6px}}.nadm .msg{{color:var(--soft);font-weight:700;margin:8px 0 0}}.nadm .box{{background:#fff;border:2px solid var(--ink);border-radius:20px;padding:22px}}</style>
+<div class="nadm">
+<div id="setup" class="box" hidden></div>
+<form class="form" id="login" style="max-width:420px"><label>비밀번호<input type="password" id="pw" autocomplete="current-password"></label><button class="btn sun" type="submit">들어가기<span class="ar">{ARROW}</span></button><p id="lmsg" class="msg" style="color:var(--coral)"></p></form>
+<div id="panel" hidden>
+  <form class="form box" id="nf"><input type="hidden" id="nid">
+    <div class="row2"><label>날짜<input id="nd" placeholder="2026.11.20"></label><label>NEW 표시<select id="nn"><option value="1">표시함</option><option value="0">표시 안 함</option></select></label></div>
+    <label>제목 *<input id="nt" maxlength="120"></label>
+    <label>내용 (선택)<textarea id="nb" rows="4" maxlength="1500" placeholder="자세한 안내가 있으면 적어 주세요."></textarea></label>
+    <div class="btns"><button class="btn sun" type="submit">저장하기<span class="ar">{ARROW}</span></button><button class="btn line" type="button" id="nreset">새로 쓰기<span class="ar">{ARROW}</span></button></div>
+    <p id="nmsg" class="msg" role="status"></p>
+  </form>
+  <h2 class="h2" style="font-size:26px;margin:36px 0 6px">올린 공지</h2>
+  <div id="nlist"></div>
+</div>
+</div>
+<script>
+(function(){{
+  var SERVER = '{gurl}', KEY = 'fj-notice-pw';
+  var $ = function(i){{ return document.getElementById(i); }};
+  var pw = ''; try {{ pw = sessionStorage.getItem(KEY) || ''; }} catch(e) {{}}
+  var list = [];
+  function esc(t){{ return String(t==null?'':t).replace(/[&<>"]/g,function(c){{return {{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}}[c];}}); }}
+  function call(body){{
+    body.pw = pw;
+    return fetch(SERVER, {{method:'POST', headers:{{'Content-Type':'text/plain;charset=utf-8'}}, body: JSON.stringify(body)}}).then(function(r){{return r.json();}});
+  }}
+  function today(){{ var d=new Date(); return d.getFullYear()+'.'+('0'+(d.getMonth()+1)).slice(-2)+'.'+('0'+d.getDate()).slice(-2); }}
+  function reset(){{ $('nid').value=''; $('nd').value=today(); $('nt').value=''; $('nb').value=''; $('nn').value='1'; }}
+  function draw(){{
+    $('nlist').innerHTML = list.length ? list.map(function(n,i){{
+      return '<div class="nrow"><time>'+esc(n.d)+'</time><span class="t">'+esc(n.t)+(n.n?'<span class="new">NEW</span>':'')+(n.b?'<small>'+esc(n.b)+'</small>':'')+'</span><span class="btns"><button class="btn sm line" data-e="'+i+'">수정</button><button class="btn sm" data-x="'+i+'">삭제</button></span></div>';
+    }}).join('') : '<p class="msg">아직 이 화면으로 올린 공지가 없습니다. (처음 열 때 홈페이지에 보이는 기본 공지는 사이트에 들어 있는 것입니다.)</p>';
+  }}
+  function open(){{
+    $('login').hidden = true; $('panel').hidden = false; reset();
+    call({{action:'notice-list'}}).then(function(j){{ if(j && j.ok){{ list=j.notices||[]; draw(); }} else {{ $('login').hidden=false; $('panel').hidden=true; $('lmsg').textContent=(j&&j.error)||'열 수 없습니다.'; }} }})
+      .catch(function(){{ $('lmsg').textContent='서버에 연결하지 못했습니다.'; $('login').hidden=false; $('panel').hidden=true; }});
+  }}
+  if(!SERVER){{
+    $('login').hidden = true;
+    var s = $('setup'); s.hidden = false;
+    s.innerHTML = '<b>아직 공지 서버가 연결되지 않았습니다.</b><br>큰길브리지가 사진 업로드 서버(apps-script/gallery)를 배포하고 주소를 넣으면 이 화면이 열립니다. 그 전에는 큰길브리지(1533-7295)에 공지 내용을 알려 주세요.';
+  }}
+  $('login').addEventListener('submit', function(e){{
+    e.preventDefault(); pw = $('pw').value; if(!pw) return;
+    try {{ sessionStorage.setItem(KEY, pw); }} catch(x) {{}}
+    open();
+  }});
+  $('nf').addEventListener('submit', function(e){{
+    e.preventDefault();
+    var t = $('nt').value.trim(); if(!t){{ $('nmsg').textContent='제목을 적어 주세요.'; return; }}
+    $('nmsg').textContent='저장하는 중…';
+    call({{action:'notice-save', notice:{{id:$('nid').value, d:$('nd').value, t:t, b:$('nb').value, n:$('nn').value==='1'}}}})
+      .then(function(j){{ if(j&&j.ok){{ list=j.notices; draw(); reset(); $('nmsg').textContent='저장했습니다. 홈페이지에는 몇 분 안에 보입니다.'; }} else $('nmsg').textContent=(j&&j.error)||'저장하지 못했습니다.'; }})
+      .catch(function(){{ $('nmsg').textContent='서버에 연결하지 못했습니다.'; }});
+  }});
+  $('nreset').addEventListener('click', reset);
+  $('nlist').addEventListener('click', function(e){{
+    var b = e.target.closest('button'); if(!b) return;
+    if(b.dataset.e){{ var n=list[+b.dataset.e]; $('nid').value=n.id; $('nd').value=n.d; $('nt').value=n.t; $('nb').value=n.b||''; $('nn').value=n.n?'1':'0'; scrollTo({{top:0,behavior:'smooth'}}); }}
+    if(b.dataset.x && confirm('이 공지를 삭제할까요?')){{ var n2=list[+b.dataset.x]; call({{action:'notice-delete', id:n2.id}}).then(function(j){{ if(j&&j.ok){{ list=j.notices; draw(); }} else alert((j&&j.error)||'삭제하지 못했습니다.'); }}); }}
+  }});
+  if(SERVER && pw) open();
+}})();
+</script></div></section>"""
+    page('notice-admin.html', f'공지사항 관리 | {NAME}', '공지사항 관리 화면', body, '', extra_head='<meta name="robots" content="noindex,nofollow">')
 
 
 # ════════════════════════ 견적 문의 ════════════════════════
@@ -472,12 +568,12 @@ def build_404():
 
 
 def build_seo():
-    pages = ['', 'about.html', 'event.html', 'kids.html', 'portfolio.html', 'notice.html', 'contact.html']
+    pages = ['', 'about.html', 'event.html', 'kids.html', 'portfolio.html', 'notice.html', 'contact.html', 'quote.html']
     today = datetime.date.today().isoformat()
     sm = '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(
         f'  <url><loc>{BASE}/{p}</loc><lastmod>{today}</lastmod></url>\n' for p in pages) + '</urlset>\n'
     open(os.path.join(ROOT, 'sitemap.xml'), 'w', encoding='utf-8', newline='\n').write(sm)
-    rb = ('User-agent: *\nDisallow: /\n' if NOINDEX else 'User-agent: *\nAllow: /\n') + f'Sitemap: {BASE}/sitemap.xml\n'
+    rb = ('User-agent: *\nDisallow: /\n' if NOINDEX else 'User-agent: *\nAllow: /\nDisallow: /contract.html\nDisallow: /statement.html\nDisallow: /office.html\nDisallow: /schedule.html\nDisallow: /upload.html\nDisallow: /notice-admin.html\n') + f'Sitemap: {BASE}/sitemap.xml\n'
     open(os.path.join(ROOT, 'robots.txt'), 'w', encoding='utf-8', newline='\n').write(rb)
     ll = f'''# {NAME_FULL}
 > 경기 화성의 유아체육 · 이벤트 행사 전문. 어린이집 · 유치원 · 초등학교 운동회, 에어바운스, 워터슬라이드, 수영장 대여, 음향 · 조명, 레크리에이션을 15년 이상 진행.
@@ -499,4 +595,4 @@ def build_seo():
 
 
 if __name__ == '__main__':
-    build_index(); build_about(); build_event(); build_kids(); build_portfolio(); build_notice(); build_contact(); build_404(); build_seo()
+    build_index(); build_about(); build_event(); build_kids(); build_portfolio(); build_notice(); build_notice_admin(); build_contact(); build_404(); build_seo()

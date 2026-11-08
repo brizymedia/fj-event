@@ -7,6 +7,7 @@
 <meta name="description" content="F&amp;J 이벤트 공지사항.">
 <meta name="robots" content="noindex,nofollow">
 <meta name="theme-color" content="#FFFBF0">
+<meta name="fj-edit" content="ca804a9435800bfb2ae99ecbc044bbcd4761f67b4aff81175e4f7bc1bc453830">
 <link rel="canonical" href="https://brizymedia.github.io/fj-event/notice.html">
 <link rel="icon" type="image/svg+xml" href="assets/img/favicon.svg">
 <meta property="og:type" content="website"><meta property="og:locale" content="ko_KR"><meta property="og:site_name" content="F&J 이벤트">
@@ -26,7 +27,7 @@
   <button class="mbtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sheet"><i></i><i></i><i></i></button>
 </div></header>
 <div class="sheet" id="sheet"><a class="m" href="about.html">회사 소개</a><a class="m" href="event.html">행사 · 대여</a><a class="m" href="kids.html">유아체육 · 체험</a><a class="m" href="portfolio.html">포트폴리오</a><a class="m" href="contact.html">견적 문의</a>
-  <div class="sub"><a href="notice.html">공지사항</a><a href="https://blog.naver.com/funandjoy12" target="_blank" rel="noopener">네이버 블로그</a><a href="https://www.youtube.com/@FJEVENT" target="_blank" rel="noopener">유튜브</a><a href="https://www.instagram.com/fun_and_joy_" target="_blank" rel="noopener">인스타그램</a></div>
+  <div class="sub"><a href="notice.html">공지사항</a><a href="quote.html">자동 견적서</a><a href="https://blog.naver.com/funandjoy12" target="_blank" rel="noopener">네이버 블로그</a><a href="https://www.youtube.com/@FJEVENT" target="_blank" rel="noopener">유튜브</a><a href="https://www.instagram.com/fun_and_joy_" target="_blank" rel="noopener">인스타그램</a></div>
   <div class="btns" style="margin-top:28px"><a class="btn sun" href="tel:01091219982">전화 010-9121-9982<span class="ar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></a></div>
 </div>
 <main id="main">
@@ -35,8 +36,18 @@
   <span class="eb"><i></i>NOTICE</span>
   <h1 class="rv">공지사항</h1>
   <p class="lead rv d1">행사 일정과 새 소식을 알려 드립니다.</p>
-</div></section><section class="sec"><div class="wrap narrow"><article class="nt rv" id="n0"><time>2026.11.08</time><h3>F&amp;J 이벤트 홈페이지를 준비하고 있습니다</h3><p>펀앤조이 체육교실 · F&amp;J 이벤트 공식 홈페이지를 준비 중입니다.
-행사 문의는 전화 010-9121-9982 로 편하게 연락 주세요.</p></article></div></section><section class="sec cta"><div class="wrap"><div class="box rv">
+</div></section><section class="sec"><div class="wrap narrow" id="nlist" data-static='[{&quot;d&quot;: &quot;2026.11.08&quot;, &quot;t&quot;: &quot;F&amp;J 이벤트 홈페이지를 준비하고 있습니다&quot;, &quot;b&quot;: &quot;펀앤조이 체육교실 · F&amp;J 이벤트 공식 홈페이지를 준비 중입니다.\n행사 문의는 전화 010-9121-9982 로 편하게 연락 주세요.&quot;}]'><article class="nt rv" id="n0"><time>2026.11.08</time><h3>F&amp;J 이벤트 홈페이지를 준비하고 있습니다</h3><p>펀앤조이 체육교실 · F&amp;J 이벤트 공식 홈페이지를 준비 중입니다.
+행사 문의는 전화 010-9121-9982 로 편하게 연락 주세요.</p></article></div></section><script>
+(function(){
+  var box=document.getElementById('nlist'); if(!box||location.protocol.indexOf('http')!==0) return;
+  function esc(t){return String(t==null?'':t).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  fetch('https://raw.githubusercontent.com/brizymedia/fj-event/photos/photos/notices.json?t='+Math.floor(Date.now()/120000),{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(j){
+    if(!j||!j.notices||!j.notices.length) return;
+    var st=[]; try{st=JSON.parse(box.getAttribute('data-static')||'[]');}catch(x){}
+    box.innerHTML=j.notices.concat(st).map(function(n,i){return '<article class="nt in" id="n'+i+'"><time>'+esc(n.d)+'</time><h3>'+esc(n.t)+'</h3><p>'+esc(n.b||'')+'</p></article>';}).join('');
+  }).catch(function(){});
+})();
+</script><section class="sec cta"><div class="wrap"><div class="box rv">
   <span class="eb"><i></i>CONTACT</span>
   <h2 style="margin-top:18px">행사 날짜가 정해지셨나요?</h2>
   <p>날짜 · 장소 · 인원만 알려 주세요. 바로 견적을 정리해 드립니다.</p>
@@ -53,9 +64,11 @@
     <div><h4>채널</h4><a href="https://blog.naver.com/funandjoy12" target="_blank" rel="noopener">네이버 블로그</a><a href="https://www.youtube.com/@FJEVENT" target="_blank" rel="noopener">유튜브</a><a href="https://www.instagram.com/fun_and_joy_" target="_blank" rel="noopener">인스타그램</a></div>
   </div>
   <div class="copy"><span>© 2026 F&J 이벤트. All rights reserved.</span><span>고객의 웃음과 즐거움을 위해</span></div>
+  <div class="admin-entry" style="text-align:center;padding:14px 0 0;font-size:12px"><a href="office.html" rel="nofollow" style="display:inline-flex;gap:5px;align-items:center;opacity:.5;padding:0"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>관리자 모드</a></div>
 </div></footer>
 <div class="dock"><a href="tel:01091219982">전화 상담</a><a href="sms:01091219982">문자 상담</a></div>
 <script src="assets/app.js?v=2"></script>
+<script src="assets/edit.js?v=2" defer></script>
 <script defer src="https://www.ai-make.co.kr/stats/stats.js" data-site="fj"></script>
 </body>
 </html>

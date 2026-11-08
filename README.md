@@ -19,3 +19,14 @@ python tools/build_site.py      # 페이지 · sitemap · robots · llms.txt 를
 5. **후기** — 받은 후기가 없어 만들지 않았다(실적 숫자 3개만: 운동회 연 100회 · 물놀이 연 50회 · 경기도교육청 행사).
 6. **영상 4개** — 대표 유튜브(@FJEVENT)에서 골랐다(삽입 재생).
 7. 오픈 전: `NOINDEX=False`, `BASE` 를 도메인으로, `og.png`(1200×630) 추가.
+
+## 업무 도구 · 사장님 수정 모드 (회사형 계약, 2026-11-08 이식)
+```
+python tools/port_docs.py     # 큰길이벤트 원본(~/Documents/클로드코드)에서 업무 도구를 이 회사용으로 다시 옮긴다
+```
+- 옮긴 것: `quote.html`(+`quote-catalog.js` 견적 품목 · 가격은 전부 비워 둠) · `contract.html` · `statement.html` · `schedule.html` · `upload.html` · `office.html`(대표 전용 업무 문서함 · 바닥글 「관리자 모드」로 들어감) · `admin-lock.js` · `apps-script/contract` · `apps-script/gallery`(+공지 액션). `notice-admin.html` 은 `build_site.py` 가 만든다.
+- 회사 설정(상호 · 사업자번호 · 연락처 · 색 · 견적 품목)은 `tools/port_docs.py` 맨 위. **결과 HTML 은 손으로 고치지 말고** 거기서 고친 뒤 다시 실행.
+- **사장님 직접 수정 모드**: `?edit=열쇠` (`assets/edit.js`, `tools/apply_edits.py` 로 반영). 레포에는 열쇠의 sha256(`build_site.py` 의 `EDIT_HASH`)만 있고, 열쇠 · 대표 암호는 큰길브리지 PC `Desktop\큰길브리지\FJ-수정모드-열쇠.txt` 에만 있다. apply_edits 로 반영한 뒤 build_site.py 를 다시 돌리면 그 수정이 덮어써지니 주의.
+- **서버 배포 전**이라 `port_docs.py` 의 `CONTRACT_URL` · `GALLERY_URL` 이 비어 있다. 배포(형님 구글 계정) 뒤 `/exec` 주소를 넣고 `port_docs.py` → `build_site.py` 순서로 다시 실행. 배포할 때 계약 서버 스크립트 속성 `BOX_PW` 에 txt 의 대표 암호를 넣어야 관리자 모드가 열린다.
+- 대표 직인 PNG 를 `assets/img/stamp-fj.png` 로 넣으면 견적서 · 계약서 · 명세서에 찍힌다(없으면 「(인)」).
+- 공지: 서버 연결 전에는 `assets/data/notices.json`, 연결 뒤에는 `notice-admin.html`(photos 가지 `photos/notices.json` 에 쌓이고 공지 페이지가 앞에 붙여 보여 줌 — 레포에 photos 고아 가지를 같이 만들 것).
