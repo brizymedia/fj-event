@@ -31,7 +31,7 @@ KAKAO = ''            # 카카오톡 채널 주소를 받으면 여기에 (https
 REPO = 'brizymedia/fj-event'   # 공지 관리자가 올린 공지(photos 가지)를 읽는 레포
 BASE = 'https://brizymedia.github.io/fj-event'   # 도메인(F&J EVENT.co.kr 희망)을 잡으면 여기만 바꾸고 다시 실행
 NOINDEX = True        # 오픈 확정 뒤 False
-VER = "4"
+VER = "6"
 EDIT_HASH = 'ca804a9435800bfb2ae99ecbc044bbcd4761f67b4aff81175e4f7bc1bc453830'   # 사장님 직접 수정 열쇠의 sha256 (열쇠 자체는 어디에도 적지 않는다 — 큰길브리지 Desktop 메모에만)
 FORM_ENDPOINT = ''    # 문의 서버(Apps Script) 배포 뒤 /exec 주소. 비어 있으면 문자 앱으로 연결
 MAP = 'https://map.naver.com/p/search/' + '%EA%B2%BD%EA%B8%B0%EB%8F%84%20%ED%99%94%EC%84%B1%EC%8B%9C%20%EB%B9%84%EB%B4%89%EB%A9%B4%20%EC%9D%BC%EB%AC%B5%EB%8F%99%EC%95%88%EA%B8%B8%203-6'
@@ -138,7 +138,7 @@ def header(cur):
     sheet = ''.join(f'<a class="m" href="{h}">{t}</a>' for h, t in NAV)
     return f'''<a class="skip" href="#main">본문으로 바로가기</a>
 <header class="hdr"><div class="pill">
-  <a class="logo" href="index.html" aria-label="{NAME} 처음으로"><img src="assets/img/logo-fj.png" alt="Fun&amp;joy 펀앤조이 체육교실 F&amp;J 이벤트" width="81" height="44"></a>
+  <a class="logo" href="index.html" aria-label="{NAME} 처음으로"><img src="assets/img/logo-fj.png" alt="Fun&amp;joy 펀앤조이 체육교실 F&amp;J 이벤트" width="81" height="44"><span class="lt"><b>펀앤조이 이벤트</b><i>FUN &amp; JOY EVENT</i></span></a>
   <nav aria-label="주 메뉴">{items}</nav>
   <a class="tel" href="tel:{TEL_RAW}">{PHONE}{TEL}</a>
   <button class="mbtn" aria-label="메뉴 열기" aria-expanded="false" aria-controls="sheet"><i></i><i></i><i></i></button>
@@ -154,6 +154,7 @@ def footer():
     return f'''<footer class="ft"><div class="wrap">
   <div class="grid">
     <div><span class="flw"><img class="fl" src="assets/img/logo-fj.png" alt="Fun&amp;joy 펀앤조이 체육교실" width="81" height="44"></span>
+      <p class="flt"><b>펀앤조이 이벤트</b></p>
       <div class="info"><b style="color:#fff">{NAME_FULL}</b> · 대표 {CEO}<br>사업자등록번호 {BIZNO}<br>{ADDR}<br>전화 <a href="tel:{TEL_RAW}" style="display:inline">{TEL}</a> · <a href="mailto:{EMAIL}" style="display:inline">{EMAIL}</a><br>{' · '.join(HOURS)}</div></div>
     <div><h4>회사</h4><a href="about.html">회사 소개</a><a href="portfolio.html">포트폴리오</a><a href="notice.html">공지사항</a><a href="contact.html">오시는 길</a></div>
     <div><h4>서비스</h4><a href="event.html">행사 · 대여</a><a href="kids.html">유아체육 · 체험</a><a href="blog/index.html">행사 준비 블로그</a><a href="contact.html">견적 문의</a></div>
