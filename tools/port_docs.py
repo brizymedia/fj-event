@@ -34,7 +34,7 @@ BLOG     = 'https://blog.naver.com/funandjoy12'
 CONTRACT_URL = ''   # apps-script/contract 배포 뒤 /exec 주소
 GALLERY_URL  = ''   # apps-script/gallery 배포 뒤 /exec 주소
 
-LOGO_FILE = 'assets/img/favicon.svg'                # 머리글에 쓰는 네모 마크
+LOGO_FILE = 'assets/img/favicon.png'                # 머리글에 쓰는 네모 마크
 MAIL_LOGO = HOME + '/assets/img/logo-mark.png'      # 메일 머리(PNG — 메일은 SVG 를 못 읽는다. favicon.svg 를 변환해 둔 것)
 STAMP     = 'assets/img/stamp-fj.png'               # 대표 인감(투명 PNG). 파일이 없으면 「(인)」 자리만
 
@@ -166,7 +166,7 @@ def common():
     ] + EXAMPLES + [
         # 아이콘 · 파비콘
         ('<link rel="icon" href="/favicon.ico" sizes="32x32">\n', ''),
-        ('href="/favicon.svg"', 'href="assets/img/favicon.svg"'),
+        ('href="/favicon.svg"', 'href="assets/img/favicon.png"'),
         ('<link rel="apple-touch-icon" href="/apple-touch-icon.png">\n', ''),
         ('  <link rel="alternate" type="application/rss+xml" title="' + NAME + ' 소식" href="/rss.xml">\n', ''),
         ('src="logo-kgm-transparent.png"', 'src="' + LOGO_FILE + '"'),
@@ -447,7 +447,7 @@ def office():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex,nofollow">
 <title>업무 문서함 — {NAME} 대표 전용</title>
-<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon.png" type="image/png">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css">
 <script defer src="https://www.ai-make.co.kr/stats/stats.js" data-site="{ID}"></script>
 <style>
