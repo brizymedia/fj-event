@@ -31,8 +31,8 @@ CODE_PRE = 'FJ-'                                    # 계약 번호 앞글자
 BLOG     = 'https://blog.naver.com/funandjoy12'
 
 # 서버(앱스 스크립트) — 배포하면 주소를 넣고 다시 돌린다. 비어 있으면 서버 없이 동작(저장함은 이 기기만, 계약은 긴 링크).
-CONTRACT_URL = ''   # apps-script/contract 배포 뒤 /exec 주소
-GALLERY_URL  = ''   # apps-script/gallery 배포 뒤 /exec 주소
+CONTRACT_URL = 'https://script.google.com/macros/s/AKfycbyOipSiiizNLlzqI9mGn4h6qlKR8BfRlh8frhCMye57wu8yIP4rWe4oP0qPk91qknXP6Q/exec'   # apps-script/contract 배포 뒤 /exec 주소
+GALLERY_URL  = 'https://script.google.com/macros/s/AKfycbz4oif_RvV0POQ5udpqju8cpqDfJnKszCKDewYyde1SpnfaX1slWn53O7Qt40PUNDUjqg/exec'   # apps-script/gallery 배포 뒤 /exec 주소
 
 LOGO_FILE = 'assets/img/favicon.png'                # 머리글에 쓰는 네모 마크
 MAIL_LOGO = HOME + '/assets/img/logo-mark.png'      # 메일 머리(PNG — 메일은 SVG 를 못 읽는다. favicon.svg 를 변환해 둔 것)
