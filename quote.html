@@ -785,14 +785,14 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const 견적_수신_이메일 = 'gilauto325@gmail.com';
+const 견적_수신_이메일 = 'cwc9982@naver.com';
 
 const 수신_이메일 = 견적_수신_이메일;
 const BTN_ID = 'btn-send';
 
 /* 문의 접수 서버 — 큰길브리지와 같은 앱스 스크립트. 2026-09-30 FormSubmit 이 CORS 응답을 끊어
    견적 문의가 「Failed to fetch」로 막혔다. 이제 이쪽으로 먼저 보내고, 안 되면 예전 경로로 간다. */
-const 문의서버 = 'https://script.google.com/macros/s/AKfycbwvQ4UJRZklRX7bZB6C0s1yZgSvBAMCVccT580L_1BtiVDyh0DIxShCAvN9McZIB0b7FA/exec';
+const 문의서버 = 'https://script.google.com/macros/s/AKfycbxn5jBU-C7M_mdAdhOExvf3FNF38W0ek9QsvgJijd5BF4eE0NgfXQD01uqCA4zLBXXb/exec';
 async function 서버접수(정보) {
   const res = await fetch(문의서버, {
     method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' },

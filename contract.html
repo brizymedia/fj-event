@@ -463,7 +463,7 @@
    설정 없이 바로 짧은 링크가 나오고, 고객이 서명하면 자동으로 메일이 온다.
    (이 주소는 고객에게 보내는 링크의 &s= 에도 어차피 들어간다. 비밀이 아니다) */
 const 서버주소_기본 = 'https://script.google.com/macros/s/AKfycbyOipSiiizNLlzqI9mGn4h6qlKR8BfRlh8frhCMye57wu8yIP4rWe4oP0qPk91qknXP6Q/exec';
-const 회사_수신_이메일 = 'gilauto325@gmail.com';   // 서버 없을 때 서명본 메일 폴백(FormSubmit)
+const 회사_수신_이메일 = 'cwc9982@naver.com';   // 서버 없을 때 서명본 메일 폴백(FormSubmit)
 const STAMP_SRC = 'assets/img/stamp-fj.png';  // 대표님 인감(투명 PNG)을 이 이름으로 넣으면 찍힌다. 없으면 「(인)」
 const $ = (s, r=document) => r.querySelector(s);
 const $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -515,7 +515,7 @@ const 출연계약 = () => C.kind === 'cast';
 const 부가세별도 = () => (C.m.vat || '별도') !== '포함';   // 예전 링크에 칸이 없으면 별도로 본다
 
 /* 문의 접수 서버 — 2026-09-30 FormSubmit 이 CORS 응답을 끊어 전송이 막혔다. 이쪽을 먼저 쓴다 */
-const 문의서버 = 'https://script.google.com/macros/s/AKfycbwvQ4UJRZklRX7bZB6C0s1yZgSvBAMCVccT580L_1BtiVDyh0DIxShCAvN9McZIB0b7FA/exec';
+const 문의서버 = 'https://script.google.com/macros/s/AKfycbxn5jBU-C7M_mdAdhOExvf3FNF38W0ek9QsvgJijd5BF4eE0NgfXQD01uqCA4zLBXXb/exec';
 async function 서버접수(정보) {
   const res = await fetch(문의서버, {
     method: 'POST', keepalive: true, headers: { 'Content-Type': 'text/plain;charset=utf-8' },
