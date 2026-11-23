@@ -1,3 +1,9 @@
 User-agent: *
-Disallow: /
+Allow: /
+Disallow: /contract.html
+Disallow: /statement.html
+Disallow: /office.html
+Disallow: /schedule.html
+Disallow: /upload.html
+Disallow: /notice-admin.html
 Sitemap: https://www.fnjevent.co.kr/sitemap.xml
