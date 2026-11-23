@@ -133,7 +133,7 @@
   <section class="panel no-print">
     <h2><iconify-icon icon="solar:import-bold" style="color:#FFD35C"></iconify-icon> 견적서에서 가져오기 <span>거래가 끝난 견적서 링크나 코드를 붙여 넣으세요</span></h2>
     <div style="display:flex;gap:.6rem;flex-wrap:wrap">
-      <input class="in" id="imp" style="flex:1;min-width:240px" placeholder="brizymedia.github.io/fj-event/quote.html#q=… 링크 또는 코드">
+      <input class="in" id="imp" style="flex:1;min-width:240px" placeholder="www.fnjevent.co.kr/quote.html#q=… 링크 또는 코드">
       <button class="btn" id="btn-imp"><iconify-icon icon="solar:download-minimalistic-bold"></iconify-icon> 불러오기</button>
     </div>
     <p class="hint">견적서 화면의 <b>「이 견적으로 거래명세서 작성」</b> 단추를 쓰면 품목명까지 그대로 넘어옵니다.</p>
@@ -349,7 +349,7 @@ function 문서HTML(){
   const t = 합계();
   const 직인 = location.origin.startsWith('http')
     ? location.origin + location.pathname.replace(/[^/]*$/, '') + 'assets/img/stamp-fj.png'
-    : 'https://brizymedia.github.io/fj-event/assets/img/stamp-fj.png';
+    : 'https://www.fnjevent.co.kr/assets/img/stamp-fj.png';
   const kv = (k, v) => '<div class="kv"><span>' + k + '</span><b>' + esc(v || '-') + '</b></div>';
 
   const 행 = S.rows.filter((r) => r.on).map((r, i) => {

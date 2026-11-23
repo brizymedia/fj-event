@@ -26,7 +26,7 @@ ADDR_S   = '경기도 화성시 효행구 비봉면 일묵동안길 3-6'
 TEL      = '010-9121-9982'
 EMAIL    = 'cwc9982@naver.com'
 REPO     = 'brizymedia/fj-event'
-HOME     = 'https://brizymedia.github.io/fj-event'  # 도메인(F&J EVENT.co.kr 희망)을 정하면 바꾸고 다시 실행
+HOME     = 'https://www.fnjevent.co.kr'  # 도메인(F&J EVENT.co.kr 희망)을 정하면 바꾸고 다시 실행
 CODE_PRE = 'FJ-'                                    # 계약 번호 앞글자
 BLOG     = 'https://blog.naver.com/funandjoy12'
 

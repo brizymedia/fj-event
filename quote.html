@@ -364,7 +364,7 @@
   <h2>견적서는 담당자 확인 뒤에 보내드립니다</h2>
   <p>화면의 <b>「이 견적으로 문의 보내기」</b> 를 눌러 주시면<br>
      현장 여건을 확인하고 <b>확정 견적서</b>를 메일로 보내드립니다.</p>
-  <p style="margin-top:8mm;">F&J 이벤트 · <b>010-9121-9982</b> · brizymedia.github.io/fj-event</p>
+  <p style="margin-top:8mm;">F&J 이벤트 · <b>010-9121-9982</b> · www.fnjevent.co.kr</p>
 </div>
 
 <div class="noise-overlay"></div>
@@ -523,7 +523,7 @@
           <div><span class="lbl">사업자번호</span><b>508-34-00436</b></div>
           <div><span class="lbl">연락처</span><b>010-9121-9982</b></div>
           <div><span class="lbl">이메일</span><b>cwc9982@naver.com</b></div>
-          <div><span class="lbl">홈페이지</span><b>brizymedia.github.io/fj-event</b></div>
+          <div><span class="lbl">홈페이지</span><b>www.fnjevent.co.kr</b></div>
         </div>
         <div class="party">
           <div style="font-size:.7rem;letter-spacing:.16em;color:#FFD35C;font-weight:700;margin-bottom:.35rem;">수요자</div>
@@ -1229,7 +1229,7 @@ function 견적HTML() {
   // 메일 본문은 다른 PC에서 열리므로 직인은 절대 주소로 (상대경로는 안 보임)
   const 직인 = location.origin.startsWith('http')
     ? location.origin + location.pathname.replace(/[^/]*$/, '') + 'assets/img/stamp-fj.png'
-    : 'https://brizymedia.github.io/fj-event/assets/img/stamp-fj.png';
+    : 'https://www.fnjevent.co.kr/assets/img/stamp-fj.png';
 
   const 항목행 = rows.map((r, i) => {
     const 금액 = r.price === null ? null : (+r.qty || 0) * (+r.days || 0) * (+r.price || 0);
@@ -1272,7 +1272,7 @@ function 견적HTML() {
   <tr><td style="background:#111827;padding:18px 24px;">
     <table cellpadding="0" cellspacing="0" border="0" width="100%"><tr>
       <td style="font-size:0;">
-        <img src="https://brizymedia.github.io/fj-event/assets/img/logo-mark.png" height="32" alt="F&J 이벤트" style="vertical-align:middle;">
+        <img src="https://www.fnjevent.co.kr/assets/img/logo-mark.png" height="32" alt="F&J 이벤트" style="vertical-align:middle;">
       </td>
       <td align="right" style="font-size:11.5px;color:#9ca3af;white-space:nowrap;">음향 · 조명 · LED · 무대</td>
     </tr></table>
@@ -1302,7 +1302,7 @@ function 견적HTML() {
             ${정보칸('사업자', '508-34-00436')}
             ${정보칸('연락처', '010-9121-9982')}
             ${정보칸('이메일', 'cwc9982@naver.com')}
-            ${정보칸('홈페이지', 'brizymedia.github.io/fj-event')}
+            ${정보칸('홈페이지', 'www.fnjevent.co.kr')}
           </td>
         </tr></table>
       </td>
