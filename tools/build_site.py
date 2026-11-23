@@ -31,6 +31,9 @@ KAKAO = ''            # 카카오톡 채널 주소를 받으면 여기에 (https
 REPO = 'brizymedia/fj-event'   # 공지 관리자가 올린 공지(photos 가지)를 읽는 레포
 BASE = 'https://www.fnjevent.co.kr'   # 도메인(F&J EVENT.co.kr 희망)을 잡으면 여기만 바꾸고 다시 실행
 NOINDEX = False       # 오픈 확정 뒤 False
+# 검색 등록 소유확인 태그(2026-11-24 네이버 서치어드바이저 · 구글 서치콘솔). 지우면 등록이 풀린다
+VERIFY = ('<meta name="naver-site-verification" content="bce91825465d201978f09124d2baf22e60707537">\n'
+          '<meta name="google-site-verification" content="Thm-d3V0IqOi_ngpI34xBn80OTnjHteOY-JRQaro0ag">\n')
 VER = "8"
 EDIT_HASH = 'ca804a9435800bfb2ae99ecbc044bbcd4761f67b4aff81175e4f7bc1bc453830'   # 사장님 직접 수정 열쇠의 sha256 (열쇠 자체는 어디에도 적지 않는다 — 큰길브리지 Desktop 메모에만)
 FORM_ENDPOINT = 'https://script.google.com/macros/s/AKfycbxn5jBU-C7M_mdAdhOExvf3FNF38W0ek9QsvgJijd5BF4eE0NgfXQD01uqCA4zLBXXb/exec'    # 문의 서버(Apps Script) 배포 뒤 /exec 주소. 비어 있으면 문자 앱으로 연결
@@ -323,7 +326,7 @@ def build_index():
 {cta_band()}
 '''
     page('index.html', f'{NAME} | 경기 화성 유아체육 · 운동회 · 에어바운스 · 워터슬라이드', '경기 화성 F&J 이벤트(펀앤조이 체육교실). 어린이집 · 유치원 · 초등학교 운동회, 에어바운스, 워터슬라이드, 수영장 대여, 음향 · 조명, 레크리에이션을 15년 넘게 진행합니다.',
-         body, 'index.html', extra_head=jsonld_biz() + jsonld_faq())
+         body, 'index.html', extra_head=VERIFY + jsonld_biz() + jsonld_faq())
 
 
 # ════════════════════════ 회사 소개 ════════════════════════
